@@ -1,6 +1,6 @@
 name             'livible_cron'
-maintainer       'YOUR_COMPANY_NAME'
-maintainer_email 'YOUR_EMAIL'
+maintainer       'Livible, LLC'
+maintainer_email 'joe.hatfield@livible.space'
 license          'All rights reserved'
 description      'Installs/Configures livible_cron'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
