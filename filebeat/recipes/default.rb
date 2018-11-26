@@ -7,6 +7,8 @@ apt_package "filebeat" do
   options "--force-yes"
 end
 
+execute 'sudo filebeat modules enable nginx'
+
 template "/etc/filebeat/filebeat.yml" do
   source 'filebeat.yml.erb'
   owner 'root'

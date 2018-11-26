@@ -1,17 +1,29 @@
-filebeat:
-  prospectors:
-    -
-      paths:
-        - "<%= @path %>"
-      input_type: log
-  registry_file: /var/lib/filebeat/registry
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - "<%= @path %>"
+  exclude_lines: ['HealthChecker']
+  exclude_files: ['.gz$']
+  multiline.pattern: ^method
+  multiline.negate: true
+  multiline.match: after
 
-output:
-  logstash:
-    hosts: ["<%= @host %>"]
-    index: filebeat
-    tls:
-      certificate_authorities: ["<%= @cert %>"]
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+
+setup.template.settings:
+  index.number_of_shards: 3
+
+output.logstash:
+  # The Logstash hosts
+  #hosts: ["10.100.1.58:5044"]
+  hosts: ["<%= @host %>"]
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+
 logging:
   to_files: true
   files:
